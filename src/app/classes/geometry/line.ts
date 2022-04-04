@@ -70,28 +70,25 @@ export class Line {
   set(): Line {
     switch (Utils.joinArgumentsConstructorNames(arguments)) {
       case('Number;Number;Number'): {
-        const A = arguments[0];
-        const B = arguments[1];
-        const C = arguments[2];
-        this.A = A;
-        this.B = B;
-        this.C = C;
+        this.A = arguments[0];
+        this.B = arguments[1];
+        this.C = arguments[2];
         return this;
       }
       case('Number;Number'): {
-        const k = arguments[0];
-        const t = arguments[1];
+        const k: number = arguments[0];
+        const t: number = arguments[1];
         return this.set(k, -1, t);
       }
       case('Number'): {
-        const k = arguments[0];
+        const k: number = arguments[0];
         return this.set(k, -1, 0);
       }
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1: number = arguments[0];
+        const y1: number = arguments[1];
+        const x2: number = arguments[2];
+        const y2: number = arguments[3];
         if (x1 === x2 && y1 === y2) {
           throw new Error('Unable to make a line from two coincident points');
         }
@@ -101,35 +98,35 @@ export class Line {
         return this;
       }
       case('Vector'): {
-        const point = arguments[0];
+        const point: Vector = arguments[0];
         return this.set(0, 0, point.x, point.y);
       }
       case('Vector;Vector'): {
-        const point1 = arguments[0];
-        const point2 = arguments[1];
+        const point1: Vector = arguments[0];
+        const point2: Vector = arguments[1];
         return this.set(point1.x, point1.y, point2.x, point2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const point2 = arguments[2];
+        const x1: number = arguments[0];
+        const y1: number = arguments[1];
+        const point2: Vector = arguments[2];
         return this.set(x1, y1, point2.x, point2.y);
       }
       case('Vector;Number;Number'): {
-        const point1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const point1: Vector = arguments[0];
+        const x2: number = arguments[1];
+        const y2: number = arguments[2];
         return this.set(point1.x, point1.y, x2, y2);
       }
       case('Vector;Number'): {
-        const point = arguments[0];
-        const angle = arguments[1];
+        const point: Vector = arguments[0];
+        const angle: number = arguments[1];
         const k = Math.tan(angle);
         const t = point.y - k * point.x;
         return this.set(k, t);
       }
       case('Segment'): {
-        const segment = arguments[0];
+        const segment: Segment = arguments[0];
         return this.set(
           segment.position.x,
           segment.position.y,
@@ -138,7 +135,7 @@ export class Line {
         );
       }
       case('Line'): {
-        const line = arguments[0];
+        const line: Line = arguments[0];
         return this.set(line.A, line.B, line.C);
       }
       default:
@@ -179,12 +176,12 @@ export class Line {
       x1 = cornerPoints.farthestLeft;
       y1 = this.getY(0);
       x2 = cornerPoints.farthestRight;
-      y2 = y1;
+      y2 = this.getY(0);
     } else {
+      x1 = this.getX(cornerPoints.farthestTop);
       y1 = cornerPoints.farthestTop;
-      x1 = this.getX(y1);
+      x2 = this.getX(cornerPoints.farthestBottom);
       y2 = cornerPoints.farthestBottom;
-      x2 = this.getX(y2);
     }
     Draw.stroke(Draw.line(x1, y1, x2, y2), style, lineWidth);
   }
@@ -194,12 +191,12 @@ export class Line {
   getDistanceToPoint(): number {
     switch (Utils.joinArgumentsConstructorNames(arguments)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x: number = arguments[0];
+        const y: number = arguments[1];
         return Math.abs(this.A * x + this.B * y + this.C) / Vector.getLength(this.A, this.B);
       }
       case('Vector'): {
-        const vector = arguments[0];
+        const vector: Vector = arguments[0];
         return this.getDistanceToPoint(vector.x, vector.y);
       }
       default:
