@@ -58,8 +58,12 @@ export class Segment {
     }
   }
 
-  getEndPosition(dst: Vector = new Vector()): Vector {
-    return dst.set(this.position).add(this.vector);
+  getEndPosition(): Vector {
+    return new Vector().set(this.position).add(this.vector);
+  }
+
+  putEndPositionIn(dst: Vector): void {
+    dst.set(this.position).add(this.vector);
   }
 
   setEndPosition(x: number, y: number): Segment;
