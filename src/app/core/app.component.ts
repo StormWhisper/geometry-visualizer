@@ -50,7 +50,7 @@ export class AppComponent implements AfterViewInit {
         mouseRx: this.mouseRx,
         mouseRy: this.mouseRy
       };
-      // Use it's fields in your script below
+      // Use its fields in your script below
       // Use break; to stop script evaluation
       // \n
       const point1 = new S.Vector(S.mouseLx, S.mouseLy);
