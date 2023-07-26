@@ -1,4 +1,5 @@
 import {Utils} from '../utils';
+import {Vector} from '../geometry/vector';
 
 export class Point {
   x: number;
@@ -6,23 +7,23 @@ export class Point {
 
   constructor(x: number, y: number);
   constructor(that: Point);
-  constructor() {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  constructor(...args: never[]) {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x = args[0];
+        const y = args[1];
         this.x = x;
         this.y = y;
         break;
       }
       case('Point'): {
-        const that = arguments[0];
+        const that = <Vector> args[0];
         this.x = that.x;
         this.y = that.y;
         break;
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 

@@ -22,80 +22,78 @@ export class Vector {
   static getDistance(point1: Vector, point2: Vector): number;
   static getDistance(x1: number, y1: number, point2: Vector): number;
   static getDistance(point1: Vector, x2: number, y2: number): number;
-  static getDistance(): number {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  static getDistance(...args: never[]): number {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1 = args[0];
+        const y1 = args[1];
+        const x2 = args[2];
+        const y2 = args[3];
         return Vector.getLength(x1 - x2, y1 - y2);
       }
       case('Vector;Vector'): {
-        const point1 = arguments[0];
-        const point2 = arguments[1];
+        const point1 = <Vector> args[0];
+        const point2 = <Vector> args[1];
         return Vector.getDistance(point1.x, point1.y, point2.x, point2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const point2 = arguments[2];
+        const x1 = args[0];
+        const y1 = args[1];
+        const point2 = <Vector> args[2];
         return Vector.getDistance(x1, y1, point2.x, point2.y);
       }
       case('Vector;Number;Number'): {
-        const point1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const point1 = <Vector> args[0];
+        const x2 = args[1];
+        const y2 = args[2];
         return Vector.getDistance(point1.x, point1.y, x2, y2);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
-  // tslint:disable:unified-signatures
   static getAngle(x: number, y: number): number;
   static getAngle(x1: number, y1: number, x2: number, y2: number): number;
   static getAngle(point1: Vector, point2: Vector): number;
   static getAngle(x1: number, y1: number, point2: Vector): number;
   static getAngle(point1: Vector, x2: number, y2: number): number;
-  // tslint:enable:unified-signatures
-  static getAngle(): number {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  static getAngle(...args: never[]): number {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x = args[0];
+        const y = args[1];
         if (x === 0 && y === 0) {
           throw new Error('Unable to get angle of a null vector');
         }
         return Math.atan2(y, x);
       }
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1 = args[0];
+        const y1 = args[1];
+        const x2 = args[2];
+        const y2 = args[3];
         return Vector.getAngle(x2 - x1, y2 - y1);
       }
       case('Vector;Vector'): {
-        const point1 = arguments[0];
-        const point2 = arguments[1];
+        const point1 = <Vector> args[0];
+        const point2 = <Vector> args[1];
         return Vector.getAngle(point1.x, point1.y, point2.x, point2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const point2 = arguments[2];
+        const x1 = args[0];
+        const y1 = args[1];
+        const point2 = <Vector> args[2];
         return Vector.getAngle(x1, y1, point2.x, point2.y);
       }
       case('Vector;Number;Number'): {
-        const point1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const point1 = <Vector> args[0];
+        const x2 = args[1];
+        const y2 = args[2];
         return Vector.getAngle(point1.x, point1.y, x2, y2);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
@@ -103,34 +101,34 @@ export class Vector {
   static getAngleBetweenVectors(vector1: Vector, vector2: Vector): number;
   static getAngleBetweenVectors(x1: number, y1: number, vector2: Vector): number;
   static getAngleBetweenVectors(vector1: Vector, x2: number, y2: number): number;
-  static getAngleBetweenVectors(): number {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  static getAngleBetweenVectors(...args: never[]): number {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1 = args[0];
+        const y1 = args[1];
+        const x2 = args[2];
+        const y2 = args[3];
         return Math.acos(Vector.scalarProduct(x1, y1, x2, y2) / (Vector.getLength(x1, y1) * Vector.getLength(x2, y2)));
       }
       case('Vector;Vector'): {
-        const vector1 = arguments[0];
-        const vector2 = arguments[1];
+        const vector1 = <Vector> args[0];
+        const vector2 = <Vector> args[1];
         return Vector.getAngleBetweenVectors(vector1.x, vector1.y, vector2.x, vector2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const vector2 = arguments[2];
+        const x1 = args[0];
+        const y1 = args[1];
+        const vector2 = <Vector> args[2];
         return Vector.getAngleBetweenVectors(x1, y1, vector2.x, vector2.y);
       }
       case('Vector;Number;Number'): {
-        const vector1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const vector1 = <Vector> args[0];
+        const x2 = args[1];
+        const y2 = args[2];
         return Vector.getAngleBetweenVectors(vector1.x, vector1.y, x2, y2);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
@@ -138,34 +136,34 @@ export class Vector {
   static scalarProduct(vector1: Vector, vector2: Vector): number;
   static scalarProduct(x1: number, y1: number, vector2: Vector): number;
   static scalarProduct(vector1: Vector, x2: number, y2: number): number;
-  static scalarProduct(): number {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  static scalarProduct(...args: never[]): number {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1 = args[0];
+        const y1 = args[1];
+        const x2 = args[2];
+        const y2 = args[3];
         return x1 * x2 + y1 * y2;
       }
       case('Vector;Vector'): {
-        const vector1 = arguments[0];
-        const vector2 = arguments[1];
+        const vector1 = <Vector> args[0];
+        const vector2 = <Vector> args[1];
         return Vector.scalarProduct(vector1.x, vector1.y, vector2.x, vector2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const vector2 = arguments[2];
+        const x1 = args[0];
+        const y1 = args[1];
+        const vector2 = <Vector> args[2];
         return Vector.scalarProduct(x1, y1, vector2.x, vector2.y);
       }
       case('Vector;Number;Number'): {
-        const vector1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const vector1 = <Vector> args[0];
+        const x2 = args[1];
+        const y2 = args[2];
         return Vector.scalarProduct(vector1.x, vector1.y, x2, y2);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
@@ -173,94 +171,94 @@ export class Vector {
   static vectorProduct(vector1: Vector, vector2: Vector): number;
   static vectorProduct(x1: number, y1: number, vector2: Vector): number;
   static vectorProduct(vector1: Vector, x2: number, y2: number): number;
-  static vectorProduct(): number {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  static vectorProduct(...args: never[]): number {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1 = args[0];
+        const y1 = args[1];
+        const x2 = args[2];
+        const y2 = args[3];
         return x1 * y2 - y1 * x2;
       }
       case('Vector;Vector'): {
-        const vector1 = arguments[0];
-        const vector2 = arguments[1];
+        const vector1 = <Vector> args[0];
+        const vector2 = <Vector> args[1];
         return Vector.vectorProduct(vector1.x, vector1.y, vector2.x, vector2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const vector2 = arguments[2];
+        const x1 = args[0];
+        const y1 = args[1];
+        const vector2 = <Vector> args[2];
         return Vector.vectorProduct(x1, y1, vector2.x, vector2.y);
       }
       case('Vector;Number;Number'): {
-        const vector1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const vector1 = <Vector> args[0];
+        const x2 = args[1];
+        const y2 = args[2];
         return Vector.vectorProduct(vector1.x, vector1.y, x2, y2);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
   set(x: number, y: number): Vector;
   set(vector: Vector): Vector;
-  set(): Vector {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  set(...args: never[]): Vector {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x = args[0];
+        const y = args[1];
         this.x = x;
         this.y = y;
         return this;
       }
       case('Vector'): {
-        const vector = arguments[0];
+        const vector = <Vector> args[0];
         return this.set(vector.x, vector.y);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
   add(x: number, y: number): Vector;
   add(vector: Vector): Vector;
-  add(): Vector {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  add(...args: never[]): Vector {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x = args[0];
+        const y = args[1];
         this.x += x;
         this.y += y;
         return this;
       }
       case('Vector'): {
-        const vector = arguments[0];
+        const vector = <Vector> args[0];
         return this.add(vector.x, vector.y);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
   sub(x: number, y: number): Vector;
   sub(vector: Vector): Vector;
-  sub(): Vector {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  sub(...args: never[]): Vector {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x = args[0];
+        const y = args[1];
         this.x -= x;
         this.y -= y;
         return this;
       }
       case('Vector'): {
-        const vector = arguments[0];
+        const vector = <Vector> args[0];
         return this.sub(vector.x, vector.y);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
@@ -337,8 +335,8 @@ export class Vector {
   draw(
     style: CanvasStyle = Draw.defaultDrawStyle,
     lineWidth: number = Draw.defaultLineWidth,
-    offsetX: number = 0,
-    offsetY: number = 0
+    offsetX = 0,
+    offsetY = 0
   ): void {
     if (this.getLength() === 0) {
       console.warn('Attempted to draw a null vector');

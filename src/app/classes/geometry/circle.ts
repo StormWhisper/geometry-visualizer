@@ -9,25 +9,25 @@ export class Circle {
 
   set(x: number, y: number, radius: number): Circle;
   set(vector: Vector, radius: number): Circle;
-  set(): Circle {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  set(...args: never[]): Circle {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
-        const radius = arguments[2];
+        const x = args[0];
+        const y = args[1];
+        const radius = args[2];
         this.position.set(x, y);
         this.radius = radius;
         return this;
       }
       case('Vector;Number'): {
-        const vector = arguments[0];
-        const radius = arguments[1];
+        const vector = args[0];
+        const radius = args[1];
         this.position.set(vector);
         this.radius = radius;
         return this;
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 

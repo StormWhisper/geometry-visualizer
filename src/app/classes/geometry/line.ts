@@ -54,7 +54,6 @@ export class Line {
     return -(this.A * x + this.C) / this.B;
   }
 
-  // tslint:disable:unified-signatures
   set(A: number, B: number, C: number): Line;
   set(k: number, t: number): Line;
   set(k: number): Line;
@@ -66,29 +65,28 @@ export class Line {
   set(point: Vector, angle: number): Line;
   set(segment: Segment): Line;
   set(line: Line): Line;
-  // tslint:enable:unified-signatures
-  set(): Line {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  set(...args: never[]): Line {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number'): {
-        this.A = arguments[0];
-        this.B = arguments[1];
-        this.C = arguments[2];
+        this.A = args[0];
+        this.B = args[1];
+        this.C = args[2];
         return this;
       }
       case('Number;Number'): {
-        const k: number = arguments[0];
-        const t: number = arguments[1];
+        const k: number = args[0];
+        const t: number = args[1];
         return this.set(k, -1, t);
       }
       case('Number'): {
-        const k: number = arguments[0];
+        const k: number = args[0];
         return this.set(k, -1, 0);
       }
       case('Number;Number;Number;Number'): {
-        const x1: number = arguments[0];
-        const y1: number = arguments[1];
-        const x2: number = arguments[2];
-        const y2: number = arguments[3];
+        const x1: number = args[0];
+        const y1: number = args[1];
+        const x2: number = args[2];
+        const y2: number = args[3];
         if (x1 === x2 && y1 === y2) {
           throw new Error('Unable to make a line from two coincident points');
         }
@@ -98,35 +96,35 @@ export class Line {
         return this;
       }
       case('Vector'): {
-        const point: Vector = arguments[0];
+        const point: Vector = args[0];
         return this.set(0, 0, point.x, point.y);
       }
       case('Vector;Vector'): {
-        const point1: Vector = arguments[0];
-        const point2: Vector = arguments[1];
+        const point1: Vector = args[0];
+        const point2: Vector = args[1];
         return this.set(point1.x, point1.y, point2.x, point2.y);
       }
       case('Number;Number;Vector'): {
-        const x1: number = arguments[0];
-        const y1: number = arguments[1];
-        const point2: Vector = arguments[2];
+        const x1: number = args[0];
+        const y1: number = args[1];
+        const point2: Vector = args[2];
         return this.set(x1, y1, point2.x, point2.y);
       }
       case('Vector;Number;Number'): {
-        const point1: Vector = arguments[0];
-        const x2: number = arguments[1];
-        const y2: number = arguments[2];
+        const point1: Vector = args[0];
+        const x2: number = args[1];
+        const y2: number = args[2];
         return this.set(point1.x, point1.y, x2, y2);
       }
       case('Vector;Number'): {
-        const point: Vector = arguments[0];
-        const angle: number = arguments[1];
+        const point: Vector = args[0];
+        const angle: number = args[1];
         const k = Math.tan(angle);
         const t = point.y - k * point.x;
         return this.set(k, t);
       }
       case('Segment'): {
-        const segment: Segment = arguments[0];
+        const segment: Segment = args[0];
         return this.set(
           segment.position.x,
           segment.position.y,
@@ -135,11 +133,11 @@ export class Line {
         );
       }
       case('Line'): {
-        const line: Line = arguments[0];
+        const line: Line = args[0];
         return this.set(line.A, line.B, line.C);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
@@ -188,19 +186,19 @@ export class Line {
 
   getDistanceToPoint(x: number, y: number): number;
   getDistanceToPoint(vector: Vector): number;
-  getDistanceToPoint(): number {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  getDistanceToPoint(...args: never[]): number {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x: number = arguments[0];
-        const y: number = arguments[1];
+        const x: number = args[0];
+        const y: number = args[1];
         return Math.abs(this.A * x + this.B * y + this.C) / Vector.getLength(this.A, this.B);
       }
       case('Vector'): {
-        const vector: Vector = arguments[0];
+        const vector: Vector = args[0];
         return this.getDistanceToPoint(vector.x, vector.y);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 }

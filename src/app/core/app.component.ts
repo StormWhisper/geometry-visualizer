@@ -94,11 +94,13 @@ export class AppComponent implements AfterViewInit {
     Draw.stroke(Draw.canvasBorders());
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onMouseEnter(): void {
 
   }
 
   onMouseDown(e: MouseEvent): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mousePosition = Draw.getMousePositionOnCanvas(e.clientX, e.clientY);
 
     this.onMouseMove(e);
@@ -126,9 +128,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   onMouseUp(e: MouseEvent): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mousePosition = Draw.getMousePositionOnCanvas(e.clientX, e.clientY);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onMouseLeave(): void {
 
   }

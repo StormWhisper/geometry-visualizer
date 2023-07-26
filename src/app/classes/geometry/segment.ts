@@ -7,54 +7,52 @@ export class Segment {
   position = new Vector();
   vector = new Vector();
 
-  // tslint:disable:unified-signatures
   set(x1: number, y1: number, x2: number, y2: number): Segment;
   set(vector: Vector): Segment;
   set(point1: Vector, point2: Vector): Segment;
   set(x1: number, y1: number, point2: Vector): Segment;
   set(point1: Vector, x2: number, y2: number): Segment;
   set(segment: Segment): Segment;
-  // tslint:enable:unified-signatures
-  set(): Segment {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  set(...args: never[]): Segment {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number;Number;Number'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const x2 = arguments[2];
-        const y2 = arguments[3];
+        const x1 = args[0];
+        const y1 = args[1];
+        const x2 = args[2];
+        const y2 = args[3];
         this.position.set(x1, y1);
         this.setEndPosition(x2, y2);
         return this;
       }
       case('Vector'): {
-        const vector = arguments[0];
+        const vector = <Vector> args[0];
         return this.set(0, 0, vector.x, vector.y);
       }
       case('Vector;Vector'): {
-        const point1 = arguments[0];
-        const point2 = arguments[1];
+        const point1 = <Vector> args[0];
+        const point2 = <Vector> args[1];
         return this.set(point1.x, point1.y, point2.x, point2.y);
       }
       case('Number;Number;Vector'): {
-        const x1 = arguments[0];
-        const y1 = arguments[1];
-        const point2 = arguments[2];
+        const x1 = args[0];
+        const y1 = args[1];
+        const point2 = <Vector> args[2];
         return this.set(x1, y1, point2.x, point2.y);
       }
       case('Vector;Number;Number'): {
-        const point1 = arguments[0];
-        const x2 = arguments[1];
-        const y2 = arguments[2];
+        const point1 = <Vector> args[0];
+        const x2 = args[1];
+        const y2 = args[2];
         return this.set(point1.x, point1.y, x2, y2);
       }
       case('Segment'): {
-        const segment = arguments[0];
+        const segment = <Segment> args[0];
         this.position.set(segment.position);
         this.vector.set(segment.vector);
         return this;
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 
@@ -68,20 +66,20 @@ export class Segment {
 
   setEndPosition(x: number, y: number): Segment;
   setEndPosition(vector: Vector): Segment;
-  setEndPosition(): Segment {
-    switch (Utils.joinArgumentsConstructorNames(arguments)) {
+  setEndPosition(...args: never[]): Segment {
+    switch (Utils.joinArgumentsConstructorNames(args)) {
       case('Number;Number'): {
-        const x = arguments[0];
-        const y = arguments[1];
+        const x = args[0];
+        const y = args[1];
         this.vector.set(x, y).sub(this.position);
         return this;
       }
       case('Vector'): {
-        const vector = arguments[0];
+        const vector = <Vector> args[0];
         return this.setEndPosition(vector.x, vector.y);
       }
       default:
-        throw Utils.wrongArgumentsException(arguments);
+        throw Utils.wrongArgumentsException(args);
     }
   }
 

@@ -4,8 +4,8 @@ import {CanvasStyle} from './canvas-style.type';
 import {CornerPoints} from './corner-points';
 
 export class Draw {
-  private constructor() {
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
 
   private static _canvas: HTMLCanvasElement;
   private static _context: CanvasRenderingContext2D;
@@ -71,7 +71,7 @@ export class Draw {
     }();
   }
 
-  static polyline(points: Point[], isClosed: boolean = false): Shape {
+  static polyline(points: Point[], isClosed = false): Shape {
     return new class implements Shape {
       apply(): void {
         Draw.context.moveTo(points[0].x, points[0].y);
@@ -128,7 +128,7 @@ export class Draw {
     x: number, y: number,
     radiusX: number, radiusY: number,
     rotation: number,
-    startAngle: number = 0, endAngle: number = Math.PI * 2, anticlockwise?: boolean | undefined
+    startAngle = 0, endAngle: number = Math.PI * 2, anticlockwise?: boolean | undefined
   ): Shape {
     return new class implements Shape {
       apply(): void {

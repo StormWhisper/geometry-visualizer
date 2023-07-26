@@ -1,16 +1,18 @@
 export class Utils {
-  private constructor() {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
+
+  static joinArgumentsConstructorNames(args: never[]): string {
+    return args.map(arg => <NonNullable<unknown>> arg)
+      .map(arg => arg.constructor.name)
+      .join(';');
   }
 
-  static joinArgumentsConstructorNames(args: IArguments): string {
-    return Array.prototype.map.call(args, a => a.constructor.name).join(';');
-  }
-
-  static wrongArgumentsException(args: IArguments): Error {
+  static wrongArgumentsException(args: never[]): Error {
     return new Error(`Wrong arguments: "${Utils.joinArgumentsConstructorNames(args)}"`);
   }
 
-  // tslint:disable-next-line:ban-types
+  // eslint-disable-next-line @typescript-eslint/ban-types
   static functionToString(fnc: Function): string {
     const str = fnc.toString();
     let array = str
